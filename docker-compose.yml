@@ -1,0 +1,55 @@
+version: "3.3"
+
+services:
+
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: "db_user"
+      POSTGRES_PASSWORD: "db_password"
+      POSTGRES_DB: demodb
+    ports:
+      - 5433:5432
+    volumes:
+      - demodata:/var/lib/postgresql/data
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+    networks:
+      - internal
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "email@example.com"
+      PGADMIN_DEFAULT_PASSWORD: "password"
+      PGADMIN_LISTEN_PORT: 8070
+    ports:
+      - "8080:8070"
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    links:
+      - "postgres:pgsql-server"
+    networks:
+      - internal
+
+
+  # traefik:
+  #   image: traefik:v2.1
+  #   command:
+  #     - "--api.insecure=true" # Don't do this in production!
+  #     - "--providers.docker=true"
+  #     - "--providers.docker.exposedbydefault=false"
+  #   ports:
+  #     - 9001: 9001
+  #     - 3001:8080
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   networks:
+  #     - internal
+  #     - default
+
+networks:
+  internal:
+
+volumes:
+  demodata:
