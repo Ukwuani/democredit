@@ -1,0 +1,8 @@
+export enum CustomerOperationType {
+    LOGIN,
+    SEND_OTP,
+    VERIFY_OTP,
+    INITIATE_RESET_PASSWORD,
+    COMPLETE_RESET_PASSWORD,
+    CHANGE_PASSWORD
+}

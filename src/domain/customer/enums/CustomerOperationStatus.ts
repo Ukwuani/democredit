@@ -1,0 +1,8 @@
+export enum CustomerOperationStatus {
+    SUCCESS,
+    INVALID_PASSWORD,
+    PHONE_NUMBER_UNVERIFIED,
+    PHONE_NUMBER_ALREADY_VERIFIED,
+    INVALID_OTP,
+    OTP_EXPIRED
+}
