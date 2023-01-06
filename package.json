@@ -4,9 +4,9 @@
   "description": "demo credit mvp",
   "main": "src/infrastructure/index.js",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "test": "jest --coverage",
-    "start": "node dist/infrastructure/server/index.js"
+    "build": "tsc --build tsconfig.json && ef-tspm",
+    "test": "jest --coverage --verbose",
+    "start": "nodemon dist/infrastructure/server/index.js"
   },
   "author": "ukwuani",
   "license": "ISC",
@@ -34,6 +34,11 @@
       "tsx",
       "js"
     ],
+    "moduleNameMapper": {
+			"domain/(.*)$": "<rootDir>/src/domain/$1",
+			"application/(.*)$": "<rootDir>/src/application/$1",
+			"infrastructure/(.*)$": "<rootDir>/src/infrastructure/$1"
+    },
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
@@ -47,11 +52,20 @@
     }
   },
   "dependencies": {
+    "@ef-carbon/tspm": "^2.2.5",
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.15",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/uuid": "^9.0.0",
+    "bcryptjs": "^2.4.3",
+    "builder-pattern": "^2.2.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^2.3.0",
+    "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "runtypes": "^6.6.0"
+    "runtypes": "^6.6.0",
+    "uuid": "^9.0.0"
   }
 }
