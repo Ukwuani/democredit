@@ -46,7 +46,7 @@ export class WalletServiceImpl implements WalletService {
         await this.walletRepository.createWallet(newWallet).then(() => {
             this.accountInfoRepository.createAccount(newAccountInfo)
         })
-        newWallet.transactionPin=""
+        newWallet.transactionPin="" //terrible
         return {
             wallet: newWallet,
             accountInfo: newAccountInfo

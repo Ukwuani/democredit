@@ -45,7 +45,7 @@ export class CustomerServiceImpl implements CustomerService{
     async createCustomer(payload: SignUpPayLoad, countryCode: string): Promise<any> {
         //validation
         await this.onboardingValidator.validateSignUpPayload(payload);
-        let customer: ICustomer = Builder<ICustomer>()
+        const newCustomer: ICustomer = Builder<ICustomer>()
         .customerId(UniqueEntityID.check(v4()))
         .firstName(payload.firstName)
         .lastName(payload.lastName)
@@ -53,7 +53,9 @@ export class CustomerServiceImpl implements CustomerService{
         .phoneNumber(payload.phoneNumber)
         .password(payload.password)
         .build()
-        return this.customerRepository.createUniqueCustomer(customer)
+        await this.customerRepository.createUniqueCustomer(newCustomer)
+        newCustomer.password = ""//terrible
+        return newCustomer
     }
    
     async getAllCustomers(): Promise<any> {
