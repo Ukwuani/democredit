@@ -1,5 +1,5 @@
- export interface BankWithdrawal {
-    bankID: string;
+ export interface CreateWalletPayload {
     transactionPin: string;
-    amount: BigInt;
+    currency: string
+    customerId: string
 }

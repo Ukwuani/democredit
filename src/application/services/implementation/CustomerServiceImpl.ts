@@ -24,25 +24,21 @@ export class CustomerServiceImpl implements CustomerService{
         this.onboardingValidator = onboardingValidator;
     }
 
-    async login(payload: LoginPayLoad): Promise<any> {
-        const rawUserData = await this.customerRepository.findCustomerByEmailorPhoneNumber(payload.loginId as string);// Get data from repo
-        console.log(rawUserData)
-        const customer = Customer.getInstance(rawUserData); // Domain level stuff
-        console.log(customer)
-        
-        const loginOperation: CustomerOperations = await customer.login(payload.password);
-        console.log(loginOperation)
-        
-        return this.loginOperationResponse(loginOperation);
-    }
-
     private async loginOperationResponse(loginOperation: CustomerOperations) {
         const loginOperationProps = loginOperation.getProps();
-      if(loginOperationProps.status.success) {
-        const token = accessToken({customer: loginOperationProps.customer.customerId})
-        return loginResponse(loginOperationProps.customer, token);
-      }
-      throw BadRequest(loginOperationProps.status.code)
+        if(loginOperationProps.status.success) {
+            const token = accessToken({customer: loginOperationProps.customer.customerId})
+            return loginResponse(loginOperationProps.customer, token);
+        }
+        throw BadRequest(loginOperationProps.status.code)
+    }
+
+    async login(payload: LoginPayLoad): Promise<any> {
+        await this.onboardingValidator.validateLoginPayload(payload);
+        const rawUserData = await this.customerRepository.findCustomerByEmailorPhoneNumber(payload.loginId as string);// Get data from repo
+        const customer = Customer.getInstance(rawUserData); // Domain level stuff        
+        const loginOperation: CustomerOperations = customer.login(payload.password);        
+        return this.loginOperationResponse(loginOperation);
     }
 
 
