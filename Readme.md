@@ -1,12 +1,14 @@
 # DemoCredit MVP
+Demo Credit is a mobile lending app that requires wallet functionality. This is needed as borrowers need a wallet to receive the loans they have been granted and also send the money for repayments.
 
 ## Assumptions
 ```
 1. Wallets have virtual account numbers provided by a third party provider
-2. Bank 
+2. Bank transactions are managed by a module in app
 ```
 
 ## Architecture (Data Driven Design and Clean Architecture)
+![DDD](./doc/ddd_diagram.jpeg)
 
 ## Scripts
 ## Install
@@ -20,7 +22,7 @@ yarn install
 yarn run test -- coverage
 ```
 ## E-R Diagram
-
+![ERD](/doc/erd.png)
 
 ## Structure
   - __src__
