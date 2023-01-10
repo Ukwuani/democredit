@@ -7,6 +7,11 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
 2. Bank transactions are managed by a module in app
 ```
 
+## Pending
+```
+
+```
+
 ## Architecture (Data Driven Design and Clean Architecture)
 ![DDD](./doc/ddd_diagram.jpeg)
 
