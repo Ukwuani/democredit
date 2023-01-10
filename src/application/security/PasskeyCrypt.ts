@@ -1,5 +1,7 @@
-import bcrypt from "bcryptjs"; 
-const salt = process.env.SALT;
+import bcrypt, { genSaltSync } from "bcryptjs";
+ const saltRound = Number(process.env.SALT);
+const salt = genSaltSync(saltRound);
+
 
 /**
  * @param {String} passkey
