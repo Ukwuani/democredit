@@ -1,6 +1,7 @@
  export interface SignUpPayLoad {
     firstName: string;
-    surname: string;
+    lastName: string;
     phoneNumber: string;
-    email: string
+    email: string,
+    password: string
 }
