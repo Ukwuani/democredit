@@ -1,6 +1,6 @@
 import { Builder } from 'builder-pattern';
 
-export interface ApiErrorType {
+export interface APIErrorType {
   code: string
   message: string
   status: number
@@ -17,44 +17,45 @@ const trimSecure = (headers: any) => {
   return headers;
 };
 
-export function ApiError(error: ApiErrorType | Error | undefined, statusCode?: string | number, message?: string, title?: string, ctx?: any): ApiErrorType {
-  // @ts-ignore
-  if ((error as ApiErrorType)?.source && !ctx) return error as ApiErrorType;
+export class APIError extends Error implements APIErrorType {
+  readonly code: string;
+  readonly message: string;
+  readonly status: number;
+  readonly title: string;
+  constructor(error: APIErrorType | Error | undefined, statusCode?: string | number, message?: string, title?: string, ctx?: any) {
+    super();
+  this.code = (error as APIErrorType)?.code || 'DMC'
+  this.title = title || (error as APIErrorType)?.title || (error as Error)?.name
+  this.message = message || error?.message || error?.toString() || "something went wrong"
+  this.status = Number(statusCode || (error as APIErrorType)?.status) || 500
 
-  let apiError = Builder<ApiErrorType>()
-  .status(Number(statusCode || (error as ApiErrorType)?.status) || 500)
-  .message(message || error?.message || error?.toString() || "something went wrong")
-  .title(title || (error as ApiErrorType)?.title || (error as Error)?.name)
-  .code((error as ApiErrorType)?.code || 'DMC')
-  .build()
 
-  if (isPrintableEnv()) console.error(JSON.stringify(apiError), ctx);
+  if (isPrintableEnv()) console.error(JSON.stringify(this), ctx);
+  }
 
-  return apiError;
 }
 
-ApiError.prototype = Error.prototype;
 
-export function Forbidden(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 403, message, 'Forbidden', context);
+export function Forbidden(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 403, message, 'Forbidden', context);
 }
 
-export function BadRequest(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 400, message, 'Bad Request', context);
+export function BadRequest(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 400, message, 'Bad Request', context);
 }
 
-export function Conflict(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 409, message, 'Conflict', context);
+export function Conflict(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 409, message, 'Conflict', context);
 }
 
-export function NotFound(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 404, message, 'Not Found', context);
+export function NotFound(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 404, message, 'Not Found', context);
 }
 
-export function Unauthorized(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 401, message, 'Unauthorized', context);
+export function Unauthorized(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 401, message, 'Unauthorized', context);
 }
 
-export function InternalError(message: string, context?: any, parentError?: ApiErrorType | Error): ApiErrorType {
-  return ApiError(parentError, 500, message, 'Internal Server Error', context);
+export function InternalError(message: string, context?: any, parentError?: APIErrorType | Error): APIErrorType {
+  return new APIError(parentError, 500, message, 'Internal Server Error', context);
 }
