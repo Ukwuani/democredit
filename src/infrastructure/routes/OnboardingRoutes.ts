@@ -4,7 +4,18 @@ import { OnboardingController } from "application/controller/OnboardingControlle
 
 export const router = Router();
 
+
 router.post('/signup', APIContext({
     controller: OnboardingController.createCustomer, 
     requireAuth: false
   }))
+
+  router.get('/list', APIContext({
+    controller: OnboardingController.listCustomer, 
+    requireAuth: false
+  }))
+
+router.post('/login', APIContext({
+  controller: OnboardingController.login, 
+  requireAuth: false
+}))
