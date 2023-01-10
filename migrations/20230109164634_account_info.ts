@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
         return knex.schema.createTable(tableName, table => {
             table.uuid("account_info_id").primary().notNullable();
             table.string("provider").notNullable();
+            table.string("account_number").notNullable();
             table.string("bank_name").notNullable();
             table.string("bank_code").notNullable()
             table.string("currency").notNullable()

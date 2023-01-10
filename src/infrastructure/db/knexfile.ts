@@ -9,7 +9,6 @@ interface IKnexConfig {
 // Update with your config settings.
 
 // dotenv.config({path: "../../../.env"});
-// dotenv.config()
 console.log(process.env.NODE_ENV)
 console.log(process.env.DB_HOST)
 const host = process.env.DB_HOST;
@@ -33,7 +32,11 @@ export const knexConfig: IKnexConfig = {
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations"
+      tableName: "knex_migrations",
+      directory: "./migrations"
+
     }
   },
 };
+
+// module.exports = knexConfig

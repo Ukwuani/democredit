@@ -4,11 +4,10 @@ const tableName = "dcb_wallet"
 
 export async function up(knex: Knex): Promise<void> {
     try {
-        
         return knex.schema.createTable(tableName, table => {
             table.uuid("wallet_id").primary().notNullable();
             table.uuid("account_info_id").notNullable();
-            table.uuid("customer_id").notNullable();
+            table.uuid("customer_id").notNullable().unique();
             table.bigint("balance").defaultTo(0);
             table.enu("currency", ["NGN"]); // could be referencing the currents table
             table.string("transaction_pin").notNullable();
