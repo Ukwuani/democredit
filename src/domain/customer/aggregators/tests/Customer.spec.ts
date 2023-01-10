@@ -8,17 +8,20 @@ const salt = 12
 const password: string = "string"
 const wrongPassword: string = "trings"
 const customer = Customer.getInstance({
-  id: v1(), 
-  name: "customerId",
-  phone: "phone",
+  customerId: v1(), 
+  firstName: "customerId",
+  lastName: "customerId",
   email: "email@gmail.com",
+  phoneNumber: "08135606725",
   password: hashSync(password, salt),
   verified: true})
 
 const customer2 = Customer.getInstance({
-  id: v1(), 
-  name: "customerId",
+  customerId: v1(), 
+  firstName: "customerId",
+  lastName: "customerId",
   phone: "phone",
+  phoneNumber: "08135606725",
   email: "email@gmail.com",
   password: hashSync(password, salt),
   verified: true})
