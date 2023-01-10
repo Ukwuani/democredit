@@ -1,10 +1,15 @@
 import { UniqueEntityID, Email, Phone } from "domain/utils/Types";
 
 export interface ICustomer{
-    id: UniqueEntityID;
-    name: string;
-    phone: Phone;
+    customerId: UniqueEntityID;
+    firstName: string;
+    lastName: string;
     email: Email;
+    phoneNumber: string;
     password: string;
-    verified: boolean;
+    dateOfBirth?: string;
+    avatar?: string
+    phoneVerified?: boolean;
 }
+
+

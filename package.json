@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --build tsconfig.json && ef-tspm",
     "test": "jest --coverage --verbose",
-    "start": "nodemon dist/infrastructure/server/index.js"
+    "start": "nodemon dist/infrastructure/server/index.js",
+    "migrate": "knex --knexfile src/infrastructure/db/knexfile.ts migrate:latest"
   },
   "author": "ukwuani",
   "license": "ISC",
@@ -35,9 +36,9 @@
       "js"
     ],
     "moduleNameMapper": {
-			"domain/(.*)$": "<rootDir>/src/domain/$1",
-			"application/(.*)$": "<rootDir>/src/application/$1",
-			"infrastructure/(.*)$": "<rootDir>/src/infrastructure/$1"
+      "domain/(.*)$": "<rootDir>/src/domain/$1",
+      "application/(.*)$": "<rootDir>/src/application/$1",
+      "infrastructure/(.*)$": "<rootDir>/src/infrastructure/$1"
     },
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
@@ -59,12 +60,16 @@
     "@types/uuid": "^9.0.0",
     "bcryptjs": "^2.4.3",
     "builder-pattern": "^2.2.0",
+    "bullmq": "^3.5.4",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "fastest-validator": "^1.16.0",
+    "ioredis": "^5.2.4",
     "jsonwebtoken": "^9.0.0",
     "knex": "^2.3.0",
+    "knex-stringcase": "^1.4.6",
+    "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
-    "pg": "^8.8.0",
     "runtypes": "^6.6.0",
     "uuid": "^9.0.0"
   }

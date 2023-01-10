@@ -4,7 +4,7 @@ import {compareSync} from "bcryptjs";
 import {CustomerOperations} from "domain/customer/entities/CustomerOperation";
 import {CustomerOperationStatus} from "domain/customer/enums/CustomerOperationStatus";
 import { CustomerOperationType } from "domain/customer/enums/CustomerOperationType";
-import { UniqueEntityID } from "domain/utils/Types";
+import { UniqueEntityID, Email } from "domain/utils/Types";
 import { IAggregateRoot } from "domain/utils/IAggregateRoot";
 import { ICustomer } from "domain/customer/interfaces/ICustomer";
 
@@ -13,20 +13,21 @@ export class Customer extends BaseEntity<ICustomer> implements IAggregateRoot {
 
     public static getInstance(rawUserData: any): Customer {
          const customer = Customer.getBuilder<ICustomer>()
-        .id(rawUserData.id)
-        .name(rawUserData.name)
-        .email(rawUserData.email)
-        .phone(rawUserData.phone)
+        .customerId(UniqueEntityID.check(rawUserData.customerId))
+        .firstName(rawUserData.firstName)
+        .lastName(rawUserData.lastName)
+        .email(Email.check(rawUserData.email))
+        .phoneNumber(rawUserData.phone)
         .password(rawUserData.password)
-        .verified(rawUserData.verified)
+        .phoneNumber(rawUserData.verified)
         .build();
-        return new Customer(customer,  UniqueEntityID.check(customer.id));
+        return new Customer(customer,  UniqueEntityID.check(customer.customerId));
     }
 
     public login(password: string): CustomerOperations {
         const customerData: ICustomerOperations = CustomerOperations
             .iBuilder()
-            .id(this.props.id)
+            .id(this.props.customerId)
             .customer(this.props)
             .type(CustomerOperationType.LOGIN)
             .build();
@@ -47,7 +48,7 @@ export class Customer extends BaseEntity<ICustomer> implements IAggregateRoot {
         return  compareSync(password, this.props.password);
     }
 
-    private isVerified() {
-        return this.props.verified;
+    private isPhoneVerified() {
+        return this.props.phoneVerified;
     }
 }
