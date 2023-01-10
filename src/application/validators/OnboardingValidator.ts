@@ -13,7 +13,7 @@ export class OnboardingValidator extends Validator {
         return await this.compile(schema)(data)
     }
 
-    async validateloginPayload(data: LoginPayLoad) {
+    async validateLoginPayload(data: LoginPayLoad) {
         let schema: LoginPayLoad = {
             loginId: ["email", "string|min:10"],
             password: "string|min:6"
