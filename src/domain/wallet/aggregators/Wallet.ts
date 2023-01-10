@@ -1,4 +1,3 @@
-import { ICustomerOperations } from "domain/customer/interfaces/ICustomerOperation";
 import BaseEntity from "domain/utils/BaseEntity";
 import {compareSync} from "bcryptjs";
 import { UniqueEntityID } from "domain/utils/Types";

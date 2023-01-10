@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 
 
-const tableName = "dcb_account_info"
+const tableName = "dcb_transaction_log"
 
 export async function up(knex: Knex): Promise<void> {
     try {

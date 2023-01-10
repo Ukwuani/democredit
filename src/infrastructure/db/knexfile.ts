@@ -1,5 +1,6 @@
 import type { Knex } from "knex";
 import dotenv from "dotenv";
+
 dotenv.config()
 
 interface IKnexConfig {

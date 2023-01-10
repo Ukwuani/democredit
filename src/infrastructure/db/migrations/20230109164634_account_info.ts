@@ -11,6 +11,7 @@ export async function up(knex: Knex): Promise<void> {
             table.string("bank_name").notNullable();
             table.string("bank_code").notNullable()
             table.string("currency").notNullable()
+            table.foreign("account_info_id").references("account_info_id").inTable("dcb_wallet");
         })
     } catch (e) {Promise.reject(e)}
 }
