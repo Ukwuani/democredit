@@ -13,6 +13,7 @@ import { CustomerOperations } from 'src/domain/customer/entities/CustomerOperati
 import { accessToken } from '../../security/JWT';
 import { BadRequest } from '../../config/Exception';
 import { loginResponse } from 'src/application/presentation/LoginResponse';
+import { signUpResponse } from '../../presentation/SignUpResponse';
 
 export class CustomerServiceImpl implements CustomerService{
     protected publicFields = ["customerId","firstName", "lastName", "email", "phoneNumber", "dateOfBirth", "avatar", "createdAt", "updatedAt"]
@@ -54,8 +55,7 @@ export class CustomerServiceImpl implements CustomerService{
         .password(payload.password)
         .build()
         await this.customerRepository.createUniqueCustomer(newCustomer)
-        newCustomer.password = ""//terrible
-        return newCustomer
+        return signUpResponse(newCustomer)
     }
    
     async getAllCustomers(): Promise<any> {
